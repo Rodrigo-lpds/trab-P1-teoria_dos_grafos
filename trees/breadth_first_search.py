@@ -70,9 +70,9 @@ class breadth_first_search:
         print(self.bfs())
         print()
     
-    def spanning_tree(self,vertex):
+    def get_distance(self,vertex):
         """
-        Returns the spanning tree of the graph.
+        Returns distance between two nodes.
         """
         parent = self.path[int(vertex)-1]
         if parent == vertex:
@@ -80,6 +80,5 @@ class breadth_first_search:
         while (str(parent)!= self.start_vertex):
             parent = self.path[int(parent)-1]
             self.distance += 1
-       
-        print(self.distance)
+        return self.distance
         
