@@ -1,5 +1,5 @@
 #Adjascency Matrix representation in Python
-class Graph:
+class AdjMatrix:
     def __init__(self, num):
         self.V = num
         self.graph = [[0 for i in range(self.V)] for j in range(self.V)]
