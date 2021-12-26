@@ -4,6 +4,8 @@ class depth_first_search:
         self.start_vertex = start_vertex
         self.visited = []
         self.stack = []
+        self.path = []
+        self.distance = 1
         self.stack.append(self.start_vertex)
         self.visited.append(self.start_vertex)
     
@@ -29,10 +31,10 @@ class depth_first_search:
         visited[unique_values.index(self.start_vertex)] = True
 
         # create the path list
-        path = [None for i in range(len(unique_values))]
+        self.path = [None for i in range(len(unique_values))]
 
         # create the path list
-        path[unique_values.index(self.start_vertex)] = self.start_vertex
+        self.path[unique_values.index(self.start_vertex)] = self.start_vertex
 
         # create the result list
         result = []
@@ -48,7 +50,7 @@ class depth_first_search:
                     # add the vertex to the stack
                     self.stack.append(i)
                     # add the vertex to the path
-                    path[unique_values.index(i)] = vertex
+                    self.path[unique_values.index(i)] = vertex
                     # add the vertex to the visited list
                     visited[unique_values.index(i)] = True
                     # add the vertex to the result list
@@ -62,4 +64,40 @@ class depth_first_search:
         print("Depth first search:")
         for i in self.dfs():
             print(i, end=" ")
+        print()
+    
+    def get_distance(self,vertex):
+        """
+        Returns distance between two nodes.
+        """
+        self.distance = 1
+        parent = self.path[int(vertex)-1]
+        if parent == self.start_vertex:
+            return self.distance
+        if int(parent) == int(vertex):
+            return "No path"
+        while (str(parent)!= self.start_vertex and int(parent) != int(vertex)):
+            children = parent
+            parent = self.path[int(parent)-1]
+            if(children == parent or self.distance > len(self.path)):
+                return "No path"
+            self.distance += 1
+        return self.distance
+      
+
+    def write_tree(self):
+        """
+        Writes the depth first search result to a file.
+        """
+        with open('dfs_result.txt', 'w') as file:
+            file.write('Depth first spanning tree:')
+            file.write('\n')
+            file.write('Node | Parent | Distance from start node')
+            file.write('\n')
+            for node, parent in enumerate(self.path):
+                if parent != None:
+                    distance = str(self.get_distance(node+1))
+                    file.write(str(node+1)+' | '+str(parent)+ ' | '+ distance +'\n')
+                print("Node: ", node+1, "Parent: ", parent)
+        print('Depth first spanning tree written to file.')
         print()

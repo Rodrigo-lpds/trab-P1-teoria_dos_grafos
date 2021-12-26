@@ -74,11 +74,33 @@ class breadth_first_search:
         """
         Returns distance between two nodes.
         """
+        self.distance = 1
         parent = self.path[int(vertex)-1]
-        if parent == vertex:
-            self.distance = 0
-        while (str(parent)!= self.start_vertex):
+        if parent == self.start_vertex:
+            return self.distance
+        if int(parent) == int(vertex):
+            return "No path"
+        while (str(parent)!= self.start_vertex and int(parent) != int(vertex)):
+            children = parent
             parent = self.path[int(parent)-1]
+            if(children == parent):
+                return "No path"
             self.distance += 1
         return self.distance
+    
+    def write_tree(self):
+        """
+        Writes the breadth first search result to a file.
+        """
+        with open('bfs_result.txt', 'w') as file:
+            file.write('Breadth first spanning tree:')
+            file.write('\n')
+            file.write('Node | Parent | Distance from start node')
+            file.write('\n')
+            for node, parent in enumerate(self.path):
+                if parent != None:
+                    file.write(str(node+1)+' | '+str(parent)+ ' | '+ str(self.get_distance(node+1)) +'\n')
+                print("Node: ", node+1, "Parent: ", parent)
+        print('Breadth first spanning tree written to file.')
+        print()
         
