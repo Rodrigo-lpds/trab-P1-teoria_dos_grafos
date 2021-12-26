@@ -4,6 +4,8 @@ class breadth_first_search:
         self.start_vertex = start_vertex
         self.visited = []
         self.queue = []
+        self.path = []
+        self.distance = 1
         self.queue.append(self.start_vertex)
         self.visited.append(self.start_vertex)
     
@@ -33,16 +35,17 @@ class breadth_first_search:
         visited[unique_values.index(self.start_vertex)] = True
 
         # create the path list
-        path = [None for i in range(len(unique_values))]
-
+        self.path = [None for i in range(len(unique_values))]
+       
         # create the path list
-        path[unique_values.index(self.start_vertex)] = self.start_vertex
+        self.path[unique_values.index(self.start_vertex)] = self.start_vertex
 
         # create the result list
         result = []
 
         # while the queue is not empty
         while len(queue) > 0:
+            #print(self.path)
             # get the first element of the queue
             vertex = queue.pop(0)
             # for each vertex in the adjacency vector
@@ -52,13 +55,13 @@ class breadth_first_search:
                     # add the vertex to the queue
                     queue.append(i)
                     # add the vertex to the path
-                    path[unique_values.index(i)] = vertex
+                    self.path[unique_values.index(i)] = vertex
                     # add the vertex to the visited list
                     visited[unique_values.index(i)] = True
                     # add the vertex to the result list
                     result.append(i)
         return result
-    
+
     def print_result(self):
         """
         Prints the breadth first search result.
@@ -66,3 +69,17 @@ class breadth_first_search:
         print('Breadth first search result:')
         print(self.bfs())
         print()
+    
+    def spanning_tree(self,vertex):
+        """
+        Returns the spanning tree of the graph.
+        """
+        parent = self.path[int(vertex)-1]
+        if parent == vertex:
+            self.distance = 0
+        while (str(parent)!= self.start_vertex):
+            parent = self.path[int(parent)-1]
+            self.distance += 1
+       
+        print(self.distance)
+        
