@@ -67,6 +67,7 @@ class breadth_first_search:
         Prints the breadth first search result.
         """
         print('Breadth first search result:')
+        
         print(self.bfs())
         print()
     
@@ -102,15 +103,6 @@ class breadth_first_search:
                 if distance != "No path" and distance > max_distance:
                     max_distance = distance
         return max_distance
-
-    
-    
-    
-    
-    
-    
-    
-    
     
     def write_tree(self):
         """
@@ -127,4 +119,14 @@ class breadth_first_search:
                 print("Node: ", node+1, "Parent: ", parent)
         print('Breadth first spanning tree written to file.')
         print()
+    
+    def connected_graph(self):
+        """
+        Returns true if the graph is connected, false otherwise.
+        """
+        
+        if len(self.bfs()) == int(self.graph[0].split()[0]) - 1:
+            return True
+        return False 
+    
         
