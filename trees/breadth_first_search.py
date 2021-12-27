@@ -83,10 +83,34 @@ class breadth_first_search:
         while (str(parent)!= self.start_vertex and int(parent) != int(vertex)):
             children = parent
             parent = self.path[int(parent)-1]
-            if(children == parent):
+            if(children == parent or self.distance > len(self.path)):
                 return "No path"
             self.distance += 1
         return self.distance
+    
+    def get_max_distance(self):
+        
+        """
+        Returns the maximum distance from the start node.
+        """
+        max_distance = 0
+        for node, parent in enumerate(self.path):
+            
+            if parent != None:
+                distance = self.get_distance(node+1)
+               
+                if distance != "No path" and distance > max_distance:
+                    max_distance = distance
+        return max_distance
+
+    
+    
+    
+    
+    
+    
+    
+    
     
     def write_tree(self):
         """
